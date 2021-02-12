@@ -46,17 +46,19 @@ const Product = ({ item }) => {
     const [quantity, setQuantity] = useState(0)
     const [selected, setSelected] = useState(false)
 
-    const handleSelection = () => {
-        setSelected(!selected)
-        if (!selected) setQuantity(1)
-        else setQuantity(0)
+    const handleSelection = (stock) => {
+        if (stock > 0) {
+            setSelected(!selected)
+            if (!selected) setQuantity(1)
+            else setQuantity(0)
+        }
     }
 
     return (
         <Container>
             <div
                 className='picker'
-                onClick={() => handleSelection()}
+                onClick={() => handleSelection(item.stock)}
             >
                 {selected ?
                     <FontAwesomeIcon icon={faCheckSquare} size='2x' />
