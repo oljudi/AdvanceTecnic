@@ -5,19 +5,29 @@ import React from 'react'
 import styled from 'styled-components'
 
 const Container = styled.div`
-    border: 1px solid red;
+    background: #98ded9;
     height: 5vh;
     width: 80vw;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
 `
 
 const FilterItem = styled.div`
+    margin-top: 5px;
     display: flex;
     flex-direction: column;
+    button {
+            border: none;
+            background: #161d6f;
+            height: 30px;
+            border-radius: 5px;
+            color: white;
+            font-weight: 800;   
+    }
 `
 
 const StockSelector = styled.div`
+    margin-top: 5px;
     width: 5%;
     display: flex;
     justify-content: space-between;
@@ -29,16 +39,16 @@ const StockSelector = styled.div`
     }
 `
 
-const ToolBar = ({ stock, setStock, filterOptions, setFilterBy, setNameToSearch }) => {
+const ToolBar = ({ stock, setStock, filterOptions, setFilterBy, setNameToSearch, setOpenCart }) => {
 
     return (
         <Container>
             <FilterItem>
-                <label>Search by product name:</label>
+                <label>Search by product name</label>
                 <input onChange={e => setNameToSearch(e.target.value)} />
             </FilterItem>
             <FilterItem>
-                <label>Filter by category:</label>
+                <label>Filter by category</label>
                 <select
                     onChange={e => setFilterBy(e.target.value)}
                 >
@@ -59,7 +69,9 @@ const ToolBar = ({ stock, setStock, filterOptions, setFilterBy, setNameToSearch 
                 <p>Stock</p>
             </StockSelector>
             <FilterItem >
-                <button>
+                <button
+                    onClick={() => setOpenCart(true)}
+                >
                     Create order
                 </button>
             </FilterItem>

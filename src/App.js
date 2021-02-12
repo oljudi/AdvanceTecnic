@@ -12,6 +12,7 @@ const MainContainer = styled.div`
   width: 100%;
   height: 100vh;
   margin: 0;
+  background: #98ded9;
 `
 
 const ContentContainer = styled.div`
@@ -29,6 +30,7 @@ const App = () => {
   const [filterBy, setFilterBy] = useState('')
   const [nameToSearch, setNameToSearch] = useState('')
 
+  const [order, setOrder] = useState([])
   const [products, setProducts] = useState([])
   const [byNameProducts, setByNameProducts] = useState([])
   const [filterOptions, setFilterOptions] = useState([])
@@ -43,6 +45,15 @@ const App = () => {
     fetchProducts()
   }, [])
 
+
+  const addToOrder = (product, option) => {
+    if (option) setOrder([...order, product])
+    else {
+      const aux = order.filter(e => e.name !== product.name)
+      setOrder(aux)
+    }
+  }
+
   return (
     <MainContainer>
       <NavBar
@@ -56,6 +67,7 @@ const App = () => {
           filterOptions={filterOptions}
           setFilterBy={setFilterBy}
           setNameToSearch={setNameToSearch}
+          setOpenCart={setOpenCart}
         />
         <Products
           stock={stock}
@@ -63,13 +75,16 @@ const App = () => {
           byNameProducts={byNameProducts}
           filterBy={filterBy}
           nameToSearch={nameToSearch}
+          addToOrder={addToOrder}
         />
       </ContentContainer>
 
       {openCart &&
         <>
           <Shadow onClick={() => setOpenCart(false)} />
-          <CartModal />
+          <CartModal
+            orderProducts={order}
+          />
         </>
       }
 

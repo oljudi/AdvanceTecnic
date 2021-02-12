@@ -20,14 +20,35 @@ const ProductsHeader = styled.div`
     display: flex;
     width: 100%;
     justify-content: space-between;
+    p {
+        width: 17%;
+        text-align: center;
+    }
 `
+
+const ProductContainer = styled.div`
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    p {
+        width: 17%;
+        text-align: center;
+    }
+`
+
 const TotalContainer = styled.div`
     width: 100%;
     display: flex;
     justify-content: space-between;
 `
 
-const CartModal = () => {
+const CartModal = ({ orderProducts }) => {
+
+    const createTotal = () => {
+        const aux = orderProducts.map(e => e.quantity * e.price)
+        return aux.reduce((a, c) => a + c)
+    }
+
     return (
         <Container>
             <h2>Your cart:</h2>
@@ -38,9 +59,27 @@ const CartModal = () => {
                 <p>Quentity</p>
                 <p>Total</p>
             </ProductsHeader>
+            {orderProducts.length > 0 ?
+                orderProducts.map((e, i) =>
+                    <ProductContainer key={i}>
+                        <img
+                            src={e.image}
+                            alt={i}
+                            width='50px'
+                        />
+                        <p>{e.name}</p>
+                        <p>${e.price}</p>
+                        <p>{e.quantity}</p>
+                        <p>${(e.price * e.quantity).toFixed(2)}</p>
+                    </ProductContainer>)
+                :
+                <p>No items added to cart</p>
+            }
             <TotalContainer>
                 <p>Total</p>
-                <p>10.00</p>
+                <p>
+                    {orderProducts.length > 0 ? `$${createTotal().toFixed(2)}` : "-.-"}
+                </p>
             </TotalContainer>
         </Container>
     )

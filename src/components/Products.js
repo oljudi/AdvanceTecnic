@@ -4,8 +4,7 @@ import styled from 'styled-components'
 import Product from './Product';
 
 const Container = styled.div`
-    background: whitesmoke;
-    height: 90vh;
+    background: #f6f6f6;
     width: 80vw;
 `
 
@@ -16,17 +15,22 @@ const ProductsHeader = styled.div`
         width: 20%;
         height: 5vh;
         text-align: center;
-        border: 1px solid red;
+        border: 3px solid #161d6f;
+        cursor: pointer;
+    }
+    .space {
+        width: 20%;
+        height: 5vh;
+        text-align: center;
     }
     .picker {
         width: 5%;
         height: 5vh;
-        border: 1px solid green;
     }
 `
 
 
-const Products = ({ stock, products, byNameProducts, filterBy, nameToSearch }) => {
+const Products = ({ stock, products, byNameProducts, filterBy, nameToSearch, addToOrder }) => {
 
     const [orderByOption, setOrderByOption] = useState('')
 
@@ -117,7 +121,7 @@ const Products = ({ stock, products, byNameProducts, filterBy, nameToSearch }) =
                     <p></p>
                 </div>
                 <div
-                    className='header'
+                    className='space'
                 >
                     <p></p>
                 </div>
@@ -178,19 +182,19 @@ const Products = ({ stock, products, byNameProducts, filterBy, nameToSearch }) =
                         (stock ?
                             (orderByOption === 'Asc' ?
                                 byNameProducts.sort((a, b) => a.name.localeCompare(b.name)).map((e, i) =>
-                                    <Product item={e} key={i} />
+                                    <Product addToOrder={addToOrder} item={e} key={i} />
                                 )
                                 : byNameProducts.sort((a, b) => b.name.localeCompare(a.name)).map((e, i) =>
-                                    <Product item={e} key={i} />
+                                    <Product addToOrder={addToOrder} item={e} key={i} />
                                 )
                             )
                             :
                             (orderByOption === 'Asc' ?
                                 byNameProducts.filter(e => e.stock > 0).sort((a, b) => a.name.localeCompare(b.name)).map((e, i) =>
-                                    <Product item={e} key={i} />
+                                    <Product addToOrder={addToOrder} item={e} key={i} />
                                 )
                                 : byNameProducts.filter(e => e.stock > 0).sort((a, b) => b.name.localeCompare(a.name)).map((e, i) =>
-                                    <Product item={e} key={i} />
+                                    <Product addToOrder={addToOrder} item={e} key={i} />
                                 )
                             )
                         )
@@ -198,19 +202,19 @@ const Products = ({ stock, products, byNameProducts, filterBy, nameToSearch }) =
                         (stock ?
                             (orderByOption === 'Asc' ?
                                 byNameProducts.filter(e => e.category === filterBy).sort((a, b) => a.name.localeCompare(b.name)).map((e, i) =>
-                                    <Product item={e} key={i} />
+                                    <Product addToOrder={addToOrder} item={e} key={i} />
                                 )
                                 : byNameProducts.filter(e => e.category === filterBy).sort((a, b) => b.name.localeCompare(a.name)).map((e, i) =>
-                                    <Product item={e} key={i} />
+                                    <Product addToOrder={addToOrder} item={e} key={i} />
                                 )
                             )
                             :
                             (orderByOption === 'Asc' ?
                                 byNameProducts.filter(e => e.category === filterBy).filter(e => e.stock > 0).sort((a, b) => a.name.localeCompare(b.name)).map((e, i) =>
-                                    <Product item={e} key={i} />
+                                    <Product addToOrder={addToOrder} item={e} key={i} />
                                 )
                                 : byNameProducts.filter(e => e.category === filterBy).filter(e => e.stock > 0).sort((a, b) => b.name.localeCompare(a.name)).map((e, i) =>
-                                    <Product item={e} key={i} />
+                                    <Product addToOrder={addToOrder} item={e} key={i} />
                                 )
                             )
                         )
@@ -220,19 +224,19 @@ const Products = ({ stock, products, byNameProducts, filterBy, nameToSearch }) =
                         (stock ?
                             (orderByOption === 'Asc' ?
                                 byNameProducts.filter(e => e.name.toLowerCase().includes(nameToSearch.toLowerCase())).sort((a, b) => a.name.localeCompare(b.name)).map((e, i) =>
-                                    <Product item={e} key={i} />
+                                    <Product addToOrder={addToOrder} item={e} key={i} />
                                 )
                                 : byNameProducts.filter(e => e.name.toLowerCase().includes(nameToSearch.toLowerCase())).sort((a, b) => b.name.localeCompare(a.name)).map((e, i) =>
-                                    <Product item={e} key={i} />
+                                    <Product addToOrder={addToOrder} item={e} key={i} />
                                 )
                             )
                             :
                             (orderByOption === 'Asc' ?
                                 byNameProducts.filter(e => e.name.toLowerCase().includes(nameToSearch.toLowerCase())).filter(e => e.stock > 0).sort((a, b) => a.name.localeCompare(b.name)).map((e, i) =>
-                                    <Product item={e} key={i} />
+                                    <Product addToOrder={addToOrder} item={e} key={i} />
                                 )
                                 : byNameProducts.filter(e => e.name.toLowerCase().includes(nameToSearch.toLowerCase())).filter(e => e.stock > 0).sort((a, b) => b.name.localeCompare(a.name)).map((e, i) =>
-                                    <Product item={e} key={i} />
+                                    <Product addToOrder={addToOrder} item={e} key={i} />
                                 )
                             )
                         )
@@ -240,19 +244,19 @@ const Products = ({ stock, products, byNameProducts, filterBy, nameToSearch }) =
                         (stock ?
                             (orderByOption === 'Asc' ?
                                 byNameProducts.filter(e => e.name.toLowerCase().includes(nameToSearch.toLowerCase())).filter(e => e.category === filterBy).sort((a, b) => a.name.localeCompare(b.name)).map((e, i) =>
-                                    <Product item={e} key={i} />
+                                    <Product addToOrder={addToOrder} item={e} key={i} />
                                 )
                                 : byNameProducts.filter(e => e.name.toLowerCase().includes(nameToSearch.toLowerCase())).filter(e => e.category === filterBy).sort((a, b) => b.name.localeCompare(a.name)).map((e, i) =>
-                                    <Product item={e} key={i} />
+                                    <Product addToOrder={addToOrder} item={e} key={i} />
                                 )
                             )
                             :
                             (orderByOption === 'Asc' ?
                                 byNameProducts.filter(e => e.name.toLowerCase().includes(nameToSearch.toLowerCase())).filter(e => e.category === filterBy).filter(e => e.stock > 0).sort((a, b) => a.name.localeCompare(b.name)).map((e, i) =>
-                                    <Product item={e} key={i} />
+                                    <Product addToOrder={addToOrder} item={e} key={i} />
                                 )
                                 : byNameProducts.filter(e => e.name.toLowerCase().includes(nameToSearch.toLowerCase())).filter(e => e.category === filterBy).filter(e => e.stock > 0).sort((a, b) => b.name.localeCompare(a.name)).map((e, i) =>
-                                    <Product item={e} key={i} />
+                                    <Product addToOrder={addToOrder} item={e} key={i} />
                                 )
                             )
                         )
@@ -266,19 +270,19 @@ const Products = ({ stock, products, byNameProducts, filterBy, nameToSearch }) =
                         (stock ?
                             (orderByOption === 'Asc' ?
                                 byNameProducts.sort((a, b) => a.category.localeCompare(b.category)).map((e, i) =>
-                                    <Product item={e} key={i} />
+                                    <Product addToOrder={addToOrder} item={e} key={i} />
                                 )
                                 : byNameProducts.sort((a, b) => b.category.localeCompare(a.category)).map((e, i) =>
-                                    <Product item={e} key={i} />
+                                    <Product addToOrder={addToOrder} item={e} key={i} />
                                 )
                             )
                             :
                             (orderByOption === 'Asc' ?
                                 byNameProducts.filter(e => e.stock > 0).sort((a, b) => a.category.localeCompare(b.category)).map((e, i) =>
-                                    <Product item={e} key={i} />
+                                    <Product addToOrder={addToOrder} item={e} key={i} />
                                 )
                                 : byNameProducts.filter(e => e.stock > 0).sort((a, b) => b.category.localeCompare(a.category)).map((e, i) =>
-                                    <Product item={e} key={i} />
+                                    <Product addToOrder={addToOrder} item={e} key={i} />
                                 )
                             )
                         )
@@ -286,19 +290,19 @@ const Products = ({ stock, products, byNameProducts, filterBy, nameToSearch }) =
                         (stock ?
                             (orderByOption === 'Asc' ?
                                 byNameProducts.filter(e => e.category === filterBy).sort((a, b) => a.category.localeCompare(b.category)).map((e, i) =>
-                                    <Product item={e} key={i} />
+                                    <Product addToOrder={addToOrder} item={e} key={i} />
                                 )
                                 : byNameProducts.filter(e => e.category === filterBy).sort((a, b) => b.category.localeCompare(a.category)).map((e, i) =>
-                                    <Product item={e} key={i} />
+                                    <Product addToOrder={addToOrder} item={e} key={i} />
                                 )
                             )
                             :
                             (orderByOption === 'Asc' ?
                                 byNameProducts.filter(e => e.category === filterBy).filter(e => e.stock > 0).sort((a, b) => a.category.localeCompare(b.category)).map((e, i) =>
-                                    <Product item={e} key={i} />
+                                    <Product addToOrder={addToOrder} item={e} key={i} />
                                 )
                                 : byNameProducts.filter(e => e.category === filterBy).filter(e => e.stock > 0).sort((a, b) => b.category.localeCompare(a.category)).map((e, i) =>
-                                    <Product item={e} key={i} />
+                                    <Product addToOrder={addToOrder} item={e} key={i} />
                                 )
                             )
                         )
@@ -308,19 +312,19 @@ const Products = ({ stock, products, byNameProducts, filterBy, nameToSearch }) =
                         (stock ?
                             (orderByOption === 'Asc' ?
                                 byNameProducts.filter(e => e.name.toLowerCase().includes(nameToSearch.toLowerCase())).sort((a, b) => a.category.localeCompare(b.category)).map((e, i) =>
-                                    <Product item={e} key={i} />
+                                    <Product addToOrder={addToOrder} item={e} key={i} />
                                 )
                                 : byNameProducts.filter(e => e.name.toLowerCase().includes(nameToSearch.toLowerCase())).sort((a, b) => b.category.localeCompare(a.category)).map((e, i) =>
-                                    <Product item={e} key={i} />
+                                    <Product addToOrder={addToOrder} item={e} key={i} />
                                 )
                             )
                             :
                             (orderByOption === 'Asc' ?
                                 byNameProducts.filter(e => e.name.toLowerCase().includes(nameToSearch.toLowerCase())).filter(e => e.stock > 0).sort((a, b) => a.category.localeCompare(b.category)).map((e, i) =>
-                                    <Product item={e} key={i} />
+                                    <Product addToOrder={addToOrder} item={e} key={i} />
                                 )
                                 : byNameProducts.filter(e => e.name.toLowerCase().includes(nameToSearch.toLowerCase())).filter(e => e.stock > 0).sort((a, b) => b.category.localeCompare(a.category)).map((e, i) =>
-                                    <Product item={e} key={i} />
+                                    <Product addToOrder={addToOrder} item={e} key={i} />
                                 )
                             )
                         )
@@ -328,19 +332,19 @@ const Products = ({ stock, products, byNameProducts, filterBy, nameToSearch }) =
                         (stock ?
                             (orderByOption === 'Asc' ?
                                 byNameProducts.filter(e => e.name.toLowerCase().includes(nameToSearch.toLowerCase())).filter(e => e.category === filterBy).sort((a, b) => a.category.localeCompare(b.category)).map((e, i) =>
-                                    <Product item={e} key={i} />
+                                    <Product addToOrder={addToOrder} item={e} key={i} />
                                 )
                                 : byNameProducts.filter(e => e.name.toLowerCase().includes(nameToSearch.toLowerCase())).filter(e => e.category === filterBy).sort((a, b) => b.category.localeCompare(a.category)).map((e, i) =>
-                                    <Product item={e} key={i} />
+                                    <Product addToOrder={addToOrder} item={e} key={i} />
                                 )
                             )
                             :
                             (orderByOption === 'Asc' ?
                                 byNameProducts.filter(e => e.name.toLowerCase().includes(nameToSearch.toLowerCase())).filter(e => e.category === filterBy).filter(e => e.stock > 0).sort((a, b) => a.category.localeCompare(b.category)).map((e, i) =>
-                                    <Product item={e} key={i} />
+                                    <Product addToOrder={addToOrder} item={e} key={i} />
                                 )
                                 : byNameProducts.filter(e => e.name.toLowerCase().includes(nameToSearch.toLowerCase())).filter(e => e.category === filterBy).filter(e => e.stock > 0).sort((a, b) => b.category.localeCompare(a.category)).map((e, i) =>
-                                    <Product item={e} key={i} />
+                                    <Product addToOrder={addToOrder} item={e} key={i} />
                                 )
                             )
                         )
@@ -354,19 +358,19 @@ const Products = ({ stock, products, byNameProducts, filterBy, nameToSearch }) =
                         (stock ?
                             (orderByOption === 'Asc' ?
                                 byNameProducts.sort((a, b) => a.price - b.price).map((e, i) =>
-                                    <Product item={e} key={i} />
+                                    <Product addToOrder={addToOrder} item={e} key={i} />
                                 )
                                 : byNameProducts.sort((a, b) => b.price - a.price).map((e, i) =>
-                                    <Product item={e} key={i} />
+                                    <Product addToOrder={addToOrder} item={e} key={i} />
                                 )
                             )
                             :
                             (orderByOption === 'Asc' ?
                                 byNameProducts.filter(e => e.stock > 0).sort((a, b) => a.price - b.price).map((e, i) =>
-                                    <Product item={e} key={i} />
+                                    <Product addToOrder={addToOrder} item={e} key={i} />
                                 )
                                 : byNameProducts.filter(e => e.stock > 0).sort((a, b) => b.price - a.price).map((e, i) =>
-                                    <Product item={e} key={i} />
+                                    <Product addToOrder={addToOrder} item={e} key={i} />
                                 )
                             )
                         )
@@ -374,19 +378,19 @@ const Products = ({ stock, products, byNameProducts, filterBy, nameToSearch }) =
                         (stock ?
                             (orderByOption === 'Asc' ?
                                 byNameProducts.filter(e => e.category === filterBy).sort((a, b) => a.price - b.price).map((e, i) =>
-                                    <Product item={e} key={i} />
+                                    <Product addToOrder={addToOrder} item={e} key={i} />
                                 )
                                 : byNameProducts.filter(e => e.category === filterBy).sort((a, b) => b.price - a.price).map((e, i) =>
-                                    <Product item={e} key={i} />
+                                    <Product addToOrder={addToOrder} item={e} key={i} />
                                 )
                             )
                             :
                             (orderByOption === 'Asc' ?
                                 byNameProducts.filter(e => e.category === filterBy).filter(e => e.stock > 0).sort((a, b) => a.price - b.price).map((e, i) =>
-                                    <Product item={e} key={i} />
+                                    <Product addToOrder={addToOrder} item={e} key={i} />
                                 )
                                 : byNameProducts.filter(e => e.category === filterBy).filter(e => e.stock > 0).sort((a, b) => b.price - a.price).map((e, i) =>
-                                    <Product item={e} key={i} />
+                                    <Product addToOrder={addToOrder} item={e} key={i} />
                                 )
                             )
                         )
@@ -396,19 +400,19 @@ const Products = ({ stock, products, byNameProducts, filterBy, nameToSearch }) =
                         (stock ?
                             (orderByOption === 'Asc' ?
                                 byNameProducts.filter(e => e.name.toLowerCase().includes(nameToSearch.toLowerCase())).sort((a, b) => a.price - b.price).map((e, i) =>
-                                    <Product item={e} key={i} />
+                                    <Product addToOrder={addToOrder} item={e} key={i} />
                                 )
                                 : byNameProducts.filter(e => e.name.toLowerCase().includes(nameToSearch.toLowerCase())).sort((a, b) => b.price - a.price).map((e, i) =>
-                                    <Product item={e} key={i} />
+                                    <Product addToOrder={addToOrder} item={e} key={i} />
                                 )
                             )
                             :
                             (orderByOption === 'Asc' ?
                                 byNameProducts.filter(e => e.name.toLowerCase().includes(nameToSearch.toLowerCase())).filter(e => e.stock > 0).sort((a, b) => a.price - b.price).map((e, i) =>
-                                    <Product item={e} key={i} />
+                                    <Product addToOrder={addToOrder} item={e} key={i} />
                                 )
                                 : byNameProducts.filter(e => e.name.toLowerCase().includes(nameToSearch.toLowerCase())).filter(e => e.stock > 0).sort((a, b) => b.price - a.price).map((e, i) =>
-                                    <Product item={e} key={i} />
+                                    <Product addToOrder={addToOrder} item={e} key={i} />
                                 )
                             )
                         )
@@ -416,19 +420,19 @@ const Products = ({ stock, products, byNameProducts, filterBy, nameToSearch }) =
                         (stock ?
                             (orderByOption === 'Asc' ?
                                 byNameProducts.filter(e => e.name.toLowerCase().includes(nameToSearch.toLowerCase())).filter(e => e.category === filterBy).sort((a, b) => a.price - b.price).map((e, i) =>
-                                    <Product item={e} key={i} />
+                                    <Product addToOrder={addToOrder} item={e} key={i} />
                                 )
                                 : byNameProducts.filter(e => e.name.toLowerCase().includes(nameToSearch.toLowerCase())).filter(e => e.category === filterBy).sort((a, b) => b.price - a.price).map((e, i) =>
-                                    <Product item={e} key={i} />
+                                    <Product addToOrder={addToOrder} item={e} key={i} />
                                 )
                             )
                             :
                             (orderByOption === 'Asc' ?
                                 byNameProducts.filter(e => e.name.toLowerCase().includes(nameToSearch.toLowerCase())).filter(e => e.category === filterBy).filter(e => e.stock > 0).sort((a, b) => a.price - b.price).map((e, i) =>
-                                    <Product item={e} key={i} />
+                                    <Product addToOrder={addToOrder} item={e} key={i} />
                                 )
                                 : byNameProducts.filter(e => e.name.toLowerCase().includes(nameToSearch.toLowerCase())).filter(e => e.category === filterBy).filter(e => e.stock > 0).sort((a, b) => b.price - a.price).map((e, i) =>
-                                    <Product item={e} key={i} />
+                                    <Product addToOrder={addToOrder} item={e} key={i} />
                                 )
                             )
                         )
@@ -442,19 +446,19 @@ const Products = ({ stock, products, byNameProducts, filterBy, nameToSearch }) =
                         (stock ?
                             (orderByOption === 'Asc' ?
                                 byNameProducts.sort((a, b) => a.stock - b.stock).map((e, i) =>
-                                    <Product item={e} key={i} />
+                                    <Product addToOrder={addToOrder} item={e} key={i} />
                                 )
                                 : byNameProducts.sort((a, b) => b.stock - a.stock).map((e, i) =>
-                                    <Product item={e} key={i} />
+                                    <Product addToOrder={addToOrder} item={e} key={i} />
                                 )
                             )
                             :
                             (orderByOption === 'Asc' ?
                                 byNameProducts.filter(e => e.stock > 0).sort((a, b) => a.stock - b.stock).map((e, i) =>
-                                    <Product item={e} key={i} />
+                                    <Product addToOrder={addToOrder} item={e} key={i} />
                                 )
                                 : byNameProducts.filter(e => e.stock > 0).sort((a, b) => b.stock - a.stock).map((e, i) =>
-                                    <Product item={e} key={i} />
+                                    <Product addToOrder={addToOrder} item={e} key={i} />
                                 )
                             )
                         )
@@ -462,19 +466,19 @@ const Products = ({ stock, products, byNameProducts, filterBy, nameToSearch }) =
                         (stock ?
                             (orderByOption === 'Asc' ?
                                 byNameProducts.filter(e => e.category === filterBy).sort((a, b) => a.stock - b.stock).map((e, i) =>
-                                    <Product item={e} key={i} />
+                                    <Product addToOrder={addToOrder} item={e} key={i} />
                                 )
                                 : byNameProducts.filter(e => e.category === filterBy).sort((a, b) => b.stock - a.stock).map((e, i) =>
-                                    <Product item={e} key={i} />
+                                    <Product addToOrder={addToOrder} item={e} key={i} />
                                 )
                             )
                             :
                             (orderByOption === 'Asc' ?
                                 byNameProducts.filter(e => e.category === filterBy).filter(e => e.stock > 0).sort((a, b) => a.stock - b.stock).map((e, i) =>
-                                    <Product item={e} key={i} />
+                                    <Product addToOrder={addToOrder} item={e} key={i} />
                                 )
                                 : byNameProducts.filter(e => e.category === filterBy).filter(e => e.stock > 0).sort((a, b) => b.stock - a.stock).map((e, i) =>
-                                    <Product item={e} key={i} />
+                                    <Product addToOrder={addToOrder} item={e} key={i} />
                                 )
                             )
                         )
@@ -484,19 +488,19 @@ const Products = ({ stock, products, byNameProducts, filterBy, nameToSearch }) =
                         (stock ?
                             (orderByOption === 'Asc' ?
                                 byNameProducts.filter(e => e.name.toLowerCase().includes(nameToSearch.toLowerCase())).sort((a, b) => a.stock - b.stock).map((e, i) =>
-                                    <Product item={e} key={i} />
+                                    <Product addToOrder={addToOrder} item={e} key={i} />
                                 )
                                 : byNameProducts.filter(e => e.name.toLowerCase().includes(nameToSearch.toLowerCase())).sort((a, b) => b.stock - a.stock).map((e, i) =>
-                                    <Product item={e} key={i} />
+                                    <Product addToOrder={addToOrder} item={e} key={i} />
                                 )
                             )
                             :
                             (orderByOption === 'Asc' ?
                                 byNameProducts.filter(e => e.name.toLowerCase().includes(nameToSearch.toLowerCase())).filter(e => e.stock > 0).sort((a, b) => a.stock - b.stock).map((e, i) =>
-                                    <Product item={e} key={i} />
+                                    <Product addToOrder={addToOrder} item={e} key={i} />
                                 )
                                 : byNameProducts.filter(e => e.name.toLowerCase().includes(nameToSearch.toLowerCase())).filter(e => e.stock > 0).sort((a, b) => b.stock - a.stock).map((e, i) =>
-                                    <Product item={e} key={i} />
+                                    <Product addToOrder={addToOrder} item={e} key={i} />
                                 )
                             )
                         )
@@ -504,19 +508,19 @@ const Products = ({ stock, products, byNameProducts, filterBy, nameToSearch }) =
                         (stock ?
                             (orderByOption === 'Asc' ?
                                 byNameProducts.filter(e => e.name.toLowerCase().includes(nameToSearch.toLowerCase())).filter(e => e.category === filterBy).sort((a, b) => a.stock - b.stock).map((e, i) =>
-                                    <Product item={e} key={i} />
+                                    <Product addToOrder={addToOrder} item={e} key={i} />
                                 )
                                 : byNameProducts.filter(e => e.name.toLowerCase().includes(nameToSearch.toLowerCase())).filter(e => e.category === filterBy).sort((a, b) => b.stock - a.stock).map((e, i) =>
-                                    <Product item={e} key={i} />
+                                    <Product addToOrder={addToOrder} item={e} key={i} />
                                 )
                             )
                             :
                             (orderByOption === 'Asc' ?
                                 byNameProducts.filter(e => e.name.toLowerCase().includes(nameToSearch.toLowerCase())).filter(e => e.category === filterBy).filter(e => e.stock > 0).sort((a, b) => a.stock - b.stock).map((e, i) =>
-                                    <Product item={e} key={i} />
+                                    <Product addToOrder={addToOrder} item={e} key={i} />
                                 )
                                 : byNameProducts.filter(e => e.name.toLowerCase().includes(nameToSearch.toLowerCase())).filter(e => e.category === filterBy).filter(e => e.stock > 0).sort((a, b) => b.stock - a.stock).map((e, i) =>
-                                    <Product item={e} key={i} />
+                                    <Product addToOrder={addToOrder} item={e} key={i} />
                                 )
                             )
                         )
@@ -529,21 +533,21 @@ const Products = ({ stock, products, byNameProducts, filterBy, nameToSearch }) =
                     (filterBy === '' ?
                         (stock ?
                             products.map((e, i) =>
-                                <Product item={e} key={i} />
+                                <Product addToOrder={addToOrder} item={e} key={i} />
                             )
                             :
                             products.filter(e => e.stock > 0).map((e, i) =>
-                                <Product item={e} key={i} />
+                                <Product addToOrder={addToOrder} item={e} key={i} />
                             )
                         )
                         :
                         (stock ?
                             products.filter(e => e.category === filterBy).map((e, i) =>
-                                <Product item={e} key={i} />
+                                <Product addToOrder={addToOrder} item={e} key={i} />
                             )
                             :
                             products.filter(e => e.category === filterBy).filter(e => e.stock > 0).map((e, i) =>
-                                <Product item={e} key={i} />
+                                <Product addToOrder={addToOrder} item={e} key={i} />
                             )
                         )
                     )
@@ -551,21 +555,21 @@ const Products = ({ stock, products, byNameProducts, filterBy, nameToSearch }) =
                     (filterBy === '' ?
                         (stock ?
                             products.filter(e => e.name.toLowerCase().includes(nameToSearch.toLowerCase())).map((e, i) =>
-                                <Product item={e} key={i} />
+                                <Product addToOrder={addToOrder} item={e} key={i} />
                             )
                             :
                             products.filter(e => e.name.toLowerCase().includes(nameToSearch.toLowerCase())).filter(e => e.stock > 0).map((e, i) =>
-                                <Product item={e} key={i} />
+                                <Product addToOrder={addToOrder} item={e} key={i} />
                             )
                         )
                         :
                         (stock ?
                             products.filter(e => e.name.toLowerCase().includes(nameToSearch.toLowerCase())).filter(e => e.category === filterBy).map((e, i) =>
-                                <Product item={e} key={i} />
+                                <Product addToOrder={addToOrder} item={e} key={i} />
                             )
                             :
                             products.filter(e => e.name.toLowerCase().includes(nameToSearch.toLowerCase())).filter(e => e.category === filterBy).filter(e => e.stock > 0).map((e, i) =>
-                                <Product item={e} key={i} />
+                                <Product addToOrder={addToOrder} item={e} key={i} />
                             )
                         )
                     )

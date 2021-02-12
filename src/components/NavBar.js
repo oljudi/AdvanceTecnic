@@ -7,6 +7,7 @@ import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 const Container = styled.div`
     height: 5%;
     display: flex;
+    background: #c7ffd8;
     h1{
         font-size: 30px;
         font-weight: 800;

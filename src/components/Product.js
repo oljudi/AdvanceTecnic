@@ -13,7 +13,6 @@ const Container = styled.div`
         width: 20%;
         height: 15vh;
         text-align: center;
-        border: 1px solid red;
         justify-content: center;
         align-items: center;
         .quantity {
@@ -24,6 +23,7 @@ const Container = styled.div`
                 }
             button {
                     border: none;
+                    cursor: pointer;
                     :disabled {
                         cursor: not-allowed;
                         color: red;
@@ -37,20 +37,31 @@ const Container = styled.div`
         align-items: center;
         width: 5%;
         height: 15vh;
-        border: 1px solid green;
+        cursor: pointer;
+
     }
 `
 
-const Product = ({ item }) => {
+const Product = ({ item, addToOrder }) => {
 
     const [quantity, setQuantity] = useState(0)
     const [selected, setSelected] = useState(false)
 
-    const handleSelection = (stock) => {
-        if (stock > 0) {
+    const handleSelection = (item) => {
+        item.quantity = quantity
+        if (item.stock > 0) {
             setSelected(!selected)
-            if (!selected) setQuantity(1)
-            else setQuantity(0)
+            if (!selected) {
+                if (quantity === 0) {
+                    item.quantity = 1
+                    setQuantity(1)
+                }
+                addToOrder(item, true)
+            }
+            else {
+                setQuantity(0)
+                addToOrder(item, false)
+            }
         }
     }
 
@@ -58,7 +69,7 @@ const Product = ({ item }) => {
         <Container>
             <div
                 className='picker'
-                onClick={() => handleSelection(item.stock)}
+                onClick={() => handleSelection(item)}
             >
                 {selected ?
                     <FontAwesomeIcon icon={faCheckSquare} size='2x' />
@@ -88,7 +99,7 @@ const Product = ({ item }) => {
             <div
                 className='item'
             >
-                <p>{item.price}</p>
+                <p>${item.price}</p>
             </div>
             <div
                 className='item'
@@ -100,7 +111,7 @@ const Product = ({ item }) => {
             >
                 <div className='quantity'>
                     <button
-                        onClick={() => quantity > 0 && setQuantity(quantity - 1)}
+                        onClick={() => quantity > 0 && setQuantity(item, quantity - 1)}
                         disabled={quantity <= 0}
                     >
                         <FontAwesomeIcon icon={faMinus} size='2x' />
